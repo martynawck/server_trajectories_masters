@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <threadsafe>true</threadsafe>
+    <system-properties>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+         <property name="ae-cloudsql.cloudsql-database-url" value="jdbc:google:mysql://mastersresearchserver-159223:europe-west1:instance1/masters_db?user=root&amp;password=root" />
+    <property name="ae-cloudsql.local-database-url" value="jdbc:mysql://google/masters_db?cloudSqlInstance=mastersresearchserver-159223:europe-west1:instance1&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=root&amp;password=root&amp;useSSL=false" />
+ 
+    </system-properties>
+</appengine-web-app>
