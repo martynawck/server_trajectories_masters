@@ -37,15 +37,15 @@ public class AddLocationServlet extends HttpServlet {
       throws IOException, ServletException {
       
 	  String userName = req.getParameter("username");
-	    String dateTime = req.getParameter("date_time");
+	    String dateTime = req.getParameter("client_timestamp");
 	    String latitude = req.getParameter("latitude");
 	    String longitude = req.getParameter("longitude");
 	    
 	    final String createTableSql = "CREATE TABLE IF NOT EXISTS locations ( location_id INT NOT NULL "
-		        + "AUTO_INCREMENT, username VARCHAR(46) NOT NULL, date_time VARCHAR(46) NOT NULL, "
-		        + "latitude VARCHAR(46) NOT NULL,  longitude VARCHAR(46) NOT NULL, timestamp DATETIME NOT NULL, "
+		        + "AUTO_INCREMENT, username VARCHAR(46) NOT NULL, client_timestamp DATETIME NOT NULL, "
+		        + "latitude VARCHAR(46) NOT NULL,  longitude VARCHAR(46) NOT NULL, server_timestamp DATETIME NOT NULL, "
 		        + "PRIMARY KEY (location_id) )";
-		    final String createVisitSql = "INSERT INTO locations (username, date_time, latitude, longitude, timestamp) VALUES (?, ?, ?, ?, ?)";
+		    final String createVisitSql = "INSERT INTO locations (username, client_timestamp, latitude, longitude, server_timestamp) VALUES (?, ?, ?, ?, ?)";
 		 
 
 		    PrintWriter out = resp.getWriter();
@@ -72,7 +72,8 @@ public class AddLocationServlet extends HttpServlet {
 		        PreparedStatement statementCreateVisit = conn.prepareStatement(createVisitSql)) {
 		      conn.createStatement().executeUpdate(createTableSql);
 		      statementCreateVisit.setString(1, userName);
-		      statementCreateVisit.setString(2, dateTime);
+		      statementCreateVisit.setTimestamp(2, new Timestamp(Long.parseLong(dateTime)));
+		     // statementCreateVisit.setString(2, dateTime);
 		      statementCreateVisit.setString(3, latitude);
 		      statementCreateVisit.setString(4, longitude);
 		      statementCreateVisit.setTimestamp(5, new Timestamp(new Date().getTime()));
